@@ -15,6 +15,8 @@
 		22D9CC7324BE123100AAFC7B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22D9CC7124BE123100AAFC7B /* Main.storyboard */; };
 		22D9CC7F24BE123200AAFC7B /* launchctl_guiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D9CC7E24BE123200AAFC7B /* launchctl_guiTests.swift */; };
 		22D9CC8A24BE123200AAFC7B /* launchctl_guiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D9CC8924BE123200AAFC7B /* launchctl_guiUITests.swift */; };
+		22D9CC9824BE125200AAFC7B /* Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D9CC9724BE125200AAFC7B /* Wrapper.swift */; };
+		22D9CC9A24BF7D1D00AAFC7B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D9CC9924BF7D1D00AAFC7B /* Service.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		22D9CC8524BE123200AAFC7B /* launchctl_guiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = launchctl_guiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22D9CC8924BE123200AAFC7B /* launchctl_guiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = launchctl_guiUITests.swift; sourceTree = "<group>"; };
 		22D9CC8B24BE123200AAFC7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22D9CC9724BE125200AAFC7B /* Wrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrapper.swift; sourceTree = "<group>"; };
+		22D9CC9924BF7D1D00AAFC7B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,8 @@
 		22D9CC6424BE122E00AAFC7B /* launchctl_gui */ = {
 			isa = PBXGroup;
 			children = (
+				22D9CC9724BE125200AAFC7B /* Wrapper.swift */,
+				22D9CC9924BF7D1D00AAFC7B /* Service.swift */,
 				22D9CC6524BE122E00AAFC7B /* AppDelegate.swift */,
 				22D9CC6724BE122E00AAFC7B /* ContentView.swift */,
 				22D9CC6C24BE123100AAFC7B /* Assets.xcassets */,
@@ -154,6 +160,8 @@
 			dependencies = (
 			);
 			name = launchctl_gui;
+			packageProductDependencies = (
+			);
 			productName = launchctl_gui;
 			productReference = 22D9CC6224BE122E00AAFC7B /* launchctl_gui.app */;
 			productType = "com.apple.product-type.application";
@@ -226,6 +234,8 @@
 				Base,
 			);
 			mainGroup = 22D9CC5924BE122E00AAFC7B;
+			packageReferences = (
+			);
 			productRefGroup = 22D9CC6324BE122E00AAFC7B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -270,6 +280,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				22D9CC6824BE122E00AAFC7B /* ContentView.swift in Sources */,
+				22D9CC9824BE125200AAFC7B /* Wrapper.swift in Sources */,
+				22D9CC9A24BF7D1D00AAFC7B /* Service.swift in Sources */,
 				22D9CC6624BE122E00AAFC7B /* AppDelegate.swift in Sources */,
 				22D9CC6B24BE122E00AAFC7B /* launchctl_gui.xcdatamodeld in Sources */,
 			);
@@ -435,6 +447,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = launchctl_gui/launchctl_gui.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -456,6 +469,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = launchctl_gui/launchctl_gui.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
