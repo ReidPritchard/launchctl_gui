@@ -9,26 +9,39 @@
 import SwiftUI
 
 struct ServiceListView: View {
+    let wrapper: Wrapper
     let list: [Service]
+
     @State private var selection: String?
-        
+    @State var searchText = ""
+
+    init(wrapper: Wrapper) {
+        self.wrapper = wrapper
+        list = wrapper.get_user_list()
+    }
+    
     var body: some View {
-        NavigationView {
-            List(selection: $selection) {
-                Section(header: Text("Services")) {
-                    ForEach(list) { s in
+        VStack {
+            SearchBar(searchText: $searchText)
+                .padding()
+
+            NavigationView {
+                List(selection: $selection) {
+                    ForEach(list.filter { self.searchText.isEmpty ? true : $0.name.localizedCaseInsensitiveContains(self.searchText) }) { s in
                         NavigationLink(destination: ServiceView(service: s)){
                             ServiceViewRow(service: s)
                         }
                     }
                 }
-            }
-        }.frame(minWidth: 100, maxWidth: .infinity, maxHeight: .infinity)
+    //                .navigationBarSearch(self.$searchText)
+                    .frame(minWidth: 300)
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
     }
 }
 
 struct ServiceListView_Previews: PreviewProvider {
     static var previews: some View {
-        ServiceListView(list: [Service(given_string: ["10", "10", "test_name"]), Service(given_string: ["10", "10", "test_name"]), Service(given_string: ["10", "10", "test_name"]), Service(given_string: ["10", "10", "test_name"])])
+        ServiceListView(wrapper: Wrapper())
     }
 }

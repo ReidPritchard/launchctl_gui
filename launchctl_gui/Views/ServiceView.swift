@@ -15,14 +15,33 @@ struct ServiceView: View {
         VStack {
             Text(service.name)
                 .font(.title)
+                .lineLimit(2)
+                .padding()
+            
+            Spacer()
             
             HStack {
-                Text(service.pid)
-                    .font(.subheadline)
-                Text(service.status)
-                    .font(.subheadline)
+                Spacer()
+
+                if service.status_description != "" {
+                    Text(service.status_description)
+                        .padding()
+                        .font(.headline)
+                }
+                
+                VStack (alignment: .leading) {
+                    Text("PID: ")
+                        .font(.headline)
+                    Text(service.pid)
+                        .font(.subheadline)
+                }.padding()
+                
+                Spacer()
             }
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            Spacer()
+
+        }.frame(minWidth: 300, maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

@@ -22,6 +22,8 @@
 		22D9CC9824BE125200AAFC7B /* Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D9CC9724BE125200AAFC7B /* Wrapper.swift */; };
 		22D9CC9A24BF7D1D00AAFC7B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D9CC9924BF7D1D00AAFC7B /* Service.swift */; };
 		22F0EB0224C37CA600C2CBE7 /* ServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F0EB0124C37CA600C2CBE7 /* ServiceView.swift */; };
+		22F0EB0424C389AE00C2CBE7 /* statusCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F0EB0324C389AE00C2CBE7 /* statusCodes.swift */; };
+		22F0EB0B24C397E700C2CBE7 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F0EB0A24C397E700C2CBE7 /* SearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		22D9CC9724BE125200AAFC7B /* Wrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrapper.swift; sourceTree = "<group>"; };
 		22D9CC9924BF7D1D00AAFC7B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		22F0EB0124C37CA600C2CBE7 /* ServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceView.swift; sourceTree = "<group>"; };
+		22F0EB0324C389AE00C2CBE7 /* statusCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = statusCodes.swift; path = launchctl_gui/statusCodes.swift; sourceTree = SOURCE_ROOT; };
+		22F0EB0A24C397E700C2CBE7 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchBar.swift; path = ../../SearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,7 @@
 		2240475724C21536003EC711 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				22F0EB0A24C397E700C2CBE7 /* SearchBar.swift */,
 				22D9CC6724BE122E00AAFC7B /* ContentView.swift */,
 				2240475524C21135003EC711 /* ServiceListView.swift */,
 				2240475824C215B2003EC711 /* ServiceListViewRow.swift */,
@@ -130,6 +135,7 @@
 				22D9CC9724BE125200AAFC7B /* Wrapper.swift */,
 				22D9CC9924BF7D1D00AAFC7B /* Service.swift */,
 				22D9CC6524BE122E00AAFC7B /* AppDelegate.swift */,
+				22F0EB0324C389AE00C2CBE7 /* statusCodes.swift */,
 				2240475724C21536003EC711 /* Views */,
 				22D9CC6C24BE123100AAFC7B /* Assets.xcassets */,
 				22D9CC7124BE123100AAFC7B /* Main.storyboard */,
@@ -305,12 +311,14 @@
 			files = (
 				22D9CC6824BE122E00AAFC7B /* ContentView.swift in Sources */,
 				2240475924C215B2003EC711 /* ServiceListViewRow.swift in Sources */,
+				22F0EB0424C389AE00C2CBE7 /* statusCodes.swift in Sources */,
 				22D9CC9824BE125200AAFC7B /* Wrapper.swift in Sources */,
 				22D9CC9A24BF7D1D00AAFC7B /* Service.swift in Sources */,
 				22D9CC6624BE122E00AAFC7B /* AppDelegate.swift in Sources */,
 				2240475B24C21AEF003EC711 /* HelpView.swift in Sources */,
 				2240475624C21135003EC711 /* ServiceListView.swift in Sources */,
 				22F0EB0224C37CA600C2CBE7 /* ServiceView.swift in Sources */,
+				22F0EB0B24C397E700C2CBE7 /* SearchBar.swift in Sources */,
 				22D9CC6B24BE122E00AAFC7B /* launchctl_gui.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

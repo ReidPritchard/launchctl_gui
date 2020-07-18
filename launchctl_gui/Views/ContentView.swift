@@ -13,8 +13,9 @@ struct ContentView: View {
 
     var body: some View {
         HStack {
-            ServiceListView(list: self.w.get_list())
+            ServiceListView(wrapper: w)
         }
+        .frame(minWidth: 600, minHeight: 300)
     }
 }
 

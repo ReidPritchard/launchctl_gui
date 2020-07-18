@@ -52,7 +52,7 @@ class Wrapper {
             error = string.components(separatedBy: "\n")
         }
         
-        task.waitUntilExit()
+//        task.waitUntilExit()
 
         let status = task.terminationStatus
 
@@ -76,8 +76,8 @@ class Wrapper {
         return self.help
     }
     
-    func get_list_by_print() -> [Service] {
-        let new_res = self.shell(cmd: "/bin/launchctl", args: "print", "user/"+self.manager_id)
+    func get_user_list() -> [Service] {
+        let new_res = self.shell(cmd: "/bin/launchctl", args: "print", "gui/"+self.manager_id)
         var all_services: [Service] = []
         
         if (new_res.exitCode != 0) {
@@ -94,27 +94,8 @@ class Wrapper {
                 
                     if (possible_service.count == 3) {
                         all_services.append(Service(given_string: possible_service))
-                        print(all_services[all_services.count-1].name)
                     }
                 }
-            }
-        }
-        return all_services
-    }
-    
-    func get_list() -> [Service] {
-        let result = self.shell(cmd: "/bin/launchctl", args: "list")
-        var all_services: [Service] = []
-
-        if (result.exitCode != 0) {
-            print("ERROR:", result.exitCode, result.error.joined(separator: " "))
-            
-            //   Some odd error here where I can't get the output of the list command
-            // If this happens we will try falling back on the 'list' command tho it's not stable
-            return self.get_list_by_print()
-        }else {
-            for item in result.output {
-                all_services.append(Service(given_string: [item]))
             }
         }
         return all_services

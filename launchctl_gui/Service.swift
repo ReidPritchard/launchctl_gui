@@ -10,14 +10,17 @@ import Foundation
 
 
 class Service:Identifiable {
-    var id = UUID()
+    let id = UUID()
     var status: String
     var pid: String
-    var name: String
+    let name: String
+    let status_description: String
     
     init(given_string: [String]) {
         self.pid = String(given_string[0].trimmingCharacters(in: .whitespacesAndNewlines))
         self.status = String(given_string[1].trimmingCharacters(in: .whitespacesAndNewlines))
         self.name = String(given_string[2].trimmingCharacters(in: .whitespacesAndNewlines))
+        
+        self.status_description = statusCodes(code: self.status).getDescription()
     }
 }
