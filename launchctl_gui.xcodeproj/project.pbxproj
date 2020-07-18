@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2240475624C21135003EC711 /* ServiceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240475524C21135003EC711 /* ServiceListView.swift */; };
+		2240475924C215B2003EC711 /* ServiceListViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240475824C215B2003EC711 /* ServiceListViewRow.swift */; };
+		2240475B24C21AEF003EC711 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240475A24C21AEF003EC711 /* HelpView.swift */; };
 		22C0891B24C0B264006ED673 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 22C0891A24C0B264006ED673 /* README.md */; };
 		22D9CC6624BE122E00AAFC7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D9CC6524BE122E00AAFC7B /* AppDelegate.swift */; };
 		22D9CC6824BE122E00AAFC7B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D9CC6724BE122E00AAFC7B /* ContentView.swift */; };
@@ -18,6 +21,7 @@
 		22D9CC8A24BE123200AAFC7B /* launchctl_guiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D9CC8924BE123200AAFC7B /* launchctl_guiUITests.swift */; };
 		22D9CC9824BE125200AAFC7B /* Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D9CC9724BE125200AAFC7B /* Wrapper.swift */; };
 		22D9CC9A24BF7D1D00AAFC7B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D9CC9924BF7D1D00AAFC7B /* Service.swift */; };
+		22F0EB0224C37CA600C2CBE7 /* ServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F0EB0124C37CA600C2CBE7 /* ServiceView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2240475524C21135003EC711 /* ServiceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceListView.swift; sourceTree = "<group>"; };
+		2240475824C215B2003EC711 /* ServiceListViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceListViewRow.swift; sourceTree = "<group>"; };
+		2240475A24C21AEF003EC711 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		22C0891A24C0B264006ED673 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		22D9CC6224BE122E00AAFC7B /* launchctl_gui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = launchctl_gui.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22D9CC6524BE122E00AAFC7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +63,7 @@
 		22D9CC8B24BE123200AAFC7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22D9CC9724BE125200AAFC7B /* Wrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrapper.swift; sourceTree = "<group>"; };
 		22D9CC9924BF7D1D00AAFC7B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		22F0EB0124C37CA600C2CBE7 /* ServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +91,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2240475724C21536003EC711 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				22D9CC6724BE122E00AAFC7B /* ContentView.swift */,
+				2240475524C21135003EC711 /* ServiceListView.swift */,
+				2240475824C215B2003EC711 /* ServiceListViewRow.swift */,
+				22F0EB0124C37CA600C2CBE7 /* ServiceView.swift */,
+				2240475A24C21AEF003EC711 /* HelpView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		22D9CC5924BE122E00AAFC7B = {
 			isa = PBXGroup;
 			children = (
@@ -110,7 +130,7 @@
 				22D9CC9724BE125200AAFC7B /* Wrapper.swift */,
 				22D9CC9924BF7D1D00AAFC7B /* Service.swift */,
 				22D9CC6524BE122E00AAFC7B /* AppDelegate.swift */,
-				22D9CC6724BE122E00AAFC7B /* ContentView.swift */,
+				2240475724C21536003EC711 /* Views */,
 				22D9CC6C24BE123100AAFC7B /* Assets.xcassets */,
 				22D9CC7124BE123100AAFC7B /* Main.storyboard */,
 				22D9CC7424BE123100AAFC7B /* Info.plist */,
@@ -212,7 +232,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = "Reid Pritchard";
 				TargetAttributes = {
 					22D9CC6124BE122E00AAFC7B = {
@@ -284,9 +304,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				22D9CC6824BE122E00AAFC7B /* ContentView.swift in Sources */,
+				2240475924C215B2003EC711 /* ServiceListViewRow.swift in Sources */,
 				22D9CC9824BE125200AAFC7B /* Wrapper.swift in Sources */,
 				22D9CC9A24BF7D1D00AAFC7B /* Service.swift in Sources */,
 				22D9CC6624BE122E00AAFC7B /* AppDelegate.swift in Sources */,
+				2240475B24C21AEF003EC711 /* HelpView.swift in Sources */,
+				2240475624C21135003EC711 /* ServiceListView.swift in Sources */,
+				22F0EB0224C37CA600C2CBE7 /* ServiceView.swift in Sources */,
 				22D9CC6B24BE122E00AAFC7B /* launchctl_gui.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,6 +477,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = launchctl_gui/launchctl_gui.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"launchctl_gui/Preview Content\"";
@@ -475,6 +500,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = launchctl_gui/launchctl_gui.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"launchctl_gui/Preview Content\"";

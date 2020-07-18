@@ -15,13 +15,9 @@ class Service:Identifiable {
     var pid: String
     var name: String
     
-    init(given_string: String) {
-        let data = given_string.split(separator: " ")
-        
-        self.status = String(data[0])
-        self.pid = ""
-        self.name = ""
-
-        print("data", data)
+    init(given_string: [String]) {
+        self.pid = String(given_string[0].trimmingCharacters(in: .whitespacesAndNewlines))
+        self.status = String(given_string[1].trimmingCharacters(in: .whitespacesAndNewlines))
+        self.name = String(given_string[2].trimmingCharacters(in: .whitespacesAndNewlines))
     }
 }
