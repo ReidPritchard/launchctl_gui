@@ -22,14 +22,15 @@ struct ServiceListView: View {
     
     var body: some View {
         VStack {
-            SearchBar(searchText: $searchText)
-                .padding()
-
             NavigationView {
-                List(selection: $selection) {
-                    ForEach(list.filter { self.searchText.isEmpty ? true : $0.name.localizedCaseInsensitiveContains(self.searchText) }) { s in
-                        NavigationLink(destination: ServiceView(service: s)){
-                            ServiceViewRow(service: s)
+                VStack {
+                    SearchBar(searchText: $searchText)
+                        .padding(.top)
+                    List(selection: $selection) {
+                        ForEach(list.filter { self.searchText.isEmpty ? true : $0.name.localizedCaseInsensitiveContains(self.searchText) }) { s in
+                            NavigationLink(destination: ServiceView(service: s, wrapper: self.wrapper)){
+                                ServiceViewRow(service: s)
+                            }
                         }
                     }
                 }

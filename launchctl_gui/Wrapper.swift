@@ -8,6 +8,22 @@
 
 import Foundation
 
+
+extension String {
+    func matchingStrings(regex: String) -> [[String]] {
+        guard let regex = try? NSRegularExpression(pattern: regex, options: []) else { return [] }
+        let nsString = self as NSString
+        let results  = regex.matches(in: self, options: [], range: NSMakeRange(0, nsString.length))
+        return results.map { result in
+            (0..<result.numberOfRanges).map {
+                result.range(at: $0).location != NSNotFound
+                        ? nsString.substring(with: result.range(at: $0))
+                        : ""
+            }
+        }
+    }
+}
+
 class Wrapper {
     var manager_id: String!
     var help:String!
@@ -59,6 +75,37 @@ class Wrapper {
         return (output, error, status)
     }
     
+    func refresh_service(service: Service) {
+        let result = self.shell(cmd: "/bin/launchctl", args: "print", "gui/"+manager_id+"/"+service.name)
+        
+        if result.exitCode != 0 {
+            print("ERROR: ", result.exitCode, result.error)
+        }
+        
+        var data: [String: [[String: String]]] = [:]
+
+        do {
+            data = try parse_launchctl_print(output: Array(result.output.dropFirst()))
+        }
+        catch {
+            print(error)
+        }
+
+        if data.count > 0 {
+            service.update_dump(data: data)
+        }
+    }
+    
+    func kickstart_service(service: Service) -> Bool {
+        let result = self.shell(cmd: "/bin/launchctl", args: "kickstart", "gui/"+manager_id+"/"+service.name)
+        
+        if (result.exitCode != 0) {
+            print("ERROR: ", result.exitCode, result.error)
+            return false
+        }
+        return true
+    }
+    
     func setup_help() {
         let result = self.shell(cmd: "/bin/launchctl", args: "help")
         
@@ -100,4 +147,63 @@ class Wrapper {
         }
         return all_services
     }
+}
+
+
+
+func parse_launchctl_print(output: [String]) -> [String: [[String: String]]] {
+    
+    var parsedValues: [String: [[String: String]]] = [:]
+    var currKeyStack: [String] = []
+    
+    
+    for line in output {
+        let trimmedline = line.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        var regex_result = trimmedline.matchingStrings(regex: #"^\s{0,}(\S.{1,}) =(?:\s|> )(\{|\S{1,}|.){1,}$"#).first
+
+        if regex_result != nil {
+            regex_result = regex_result?.dropFirst()
+                    .map { String($0) }
+
+            
+            // Check if new category is opening
+            if regex_result?.last == "{" {
+//                print("New category!", (regex_result?.last)!)
+                
+                // Simply push to stack then use like normal
+                currKeyStack.append((regex_result?.first)!)
+
+            } else {
+                // All values (NOT '{')
+                add_to_dictionary(dict: &parsedValues, parentKey: currKeyStack.first ?? (regex_result?.first)!, childKey: (regex_result?.first)!, val: (regex_result?.last)!)
+            }
+        } else {
+            if trimmedline != "" {
+                if trimmedline == "}" {
+                    if currKeyStack.count > 0 {
+//                        print("REMOVING THIS KEY", currKeyStack.removeFirst())
+                        currKeyStack.removeFirst()
+                    }
+                } else {
+                    if currKeyStack.count > 0 {
+                        add_to_dictionary(dict: &parsedValues, parentKey: (currKeyStack.first)!, childKey: (currKeyStack.first)!, val: trimmedline)
+                    }
+                }
+                
+                // Probably need to save the info here or at least
+                // check if it's the end of a group
+            }
+        }
+    }
+    
+    return parsedValues
+}
+
+func add_to_dictionary(dict: inout [String : [[String : String]]], parentKey: String, childKey: String, val: String){
+    var existingItems = dict[parentKey] ?? [[String: String]]()
+    // Append to existing
+    existingItems.append([childKey: val])
+    // Update value at current category
+    dict[parentKey] = existingItems
 }
