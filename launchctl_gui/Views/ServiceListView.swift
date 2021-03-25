@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ServiceListView: View {
     let wrapper: Wrapper
-    let list: [Service]
+    var list: [Service]
 
     @State private var selection: String?
     @State var searchText = ""
@@ -18,6 +18,12 @@ struct ServiceListView: View {
     init(wrapper: Wrapper) {
         self.wrapper = wrapper
         list = wrapper.get_user_list()
+//        var timer = Timer()
+//            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.update_list), userInfo: nil, repeats: true)
+    }
+    
+    private func update_list(){
+//        self.list = wrapper.get_user_list()
     }
     
     var body: some View {

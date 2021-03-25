@@ -64,8 +64,15 @@ class Service : NSObject, Identifiable {
             
             self.status_description = statusCodes(code: self.status).getDescription()
         }
+    }
+    
+    func get_attribute(names: [String]) -> String {
         
+        for name in names {
+            return name;
+        }
         
+        return "";
     }
 
     func update_dump(data: [String: [[String: String]]]) {

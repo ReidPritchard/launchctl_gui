@@ -12,10 +12,14 @@ struct ContentView: View {
     private let w = Wrapper()
 
     var body: some View {
-        HStack {
-            ServiceListView(wrapper: w)
+        VStack{
+            ActionBar(wrapper: w).padding()
+            
+            HStack {
+                ServiceListView(wrapper: w)
+            }
         }
-        .frame(minWidth: 600, minHeight: 300)
+        .frame(minWidth: 600, maxWidth: 1000, minHeight: 300, maxHeight: 900)
     }
 }
 

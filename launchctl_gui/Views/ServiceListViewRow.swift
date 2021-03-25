@@ -13,14 +13,14 @@ struct ServiceViewRow: View {
     
     var body: some View {
         HStack {
-            Text(service.status)
+            Text("Status: " + service.status)
                 .font(.subheadline)
                 .lineLimit(1)
                 .padding(.trailing, 5.0)
             VStack(alignment: .leading) {
                 Text(service.name)
                     .font(.headline)
-                Text(service.pid)
+                Text("PID: " + service.pid)
                     .font(.subheadline)
             }
         }

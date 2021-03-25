@@ -14,84 +14,141 @@ struct ServiceView: View {
     
     @State var toggle_kickstart = true
     @State var toggle_additional_info = false
+    @State private var filepath: String = ""
 
     var body: some View {
-        VStack {
-            Text(service.name)
-                .font(.title)
-                .lineLimit(2)
-                .padding()
-            
-            Spacer()
-            
-            HStack {
+        GeometryReader { metrics in
+            VStack {
+                Text(service.name)
+                    .font(.title)
+                    .lineLimit(2)
+                    .padding()
+                
                 Spacer()
+                
+                HStack {
+                    Spacer()
 
-                if service.status_description != "" {
-                    Text(service.status_description)
-                        .padding()
-                        .font(.headline)
+                    if service.status_description != "" {
+                        Text(service.status_description)
+                            .padding()
+                            .font(.headline)
+                        
+                        VStack (alignment: .leading) {
+                            Text("Status: ")
+                                .font(.headline)
+                            Text(service.status)
+                                .font(.subheadline)
+                        }.padding()
+                    }
+                    
+                    VStack (alignment: .leading) {
+                        Text("PID: ")
+                            .font(.headline)
+                        Text(service.pid)
+                            .font(.subheadline)
+                    }.padding()
+                    
+                    Spacer()
                 }
                 
-                VStack (alignment: .leading) {
-                    Text("PID: ")
-                        .font(.headline)
-                    Text(service.pid)
-                        .font(.subheadline)
-                }.padding()
                 
-                Spacer()
-            }
-            
-            HStack {
+                
                 VStack {
-                    if (toggle_kickstart){
+                    HStack {
                         Button(action: {
-                            self.toggle_kickstart = self.wrapper.kickstart_service(service: self.service)
+                            print("start")
                         }) {
-                            Text("Kickstart")
+                            Text("Start")
                         }
-                    } else {
-                        Text("Kickstarting!")
+                    
+                        
+                        if (toggle_kickstart){
+                            Button(action: {
+                                self.toggle_kickstart = self.wrapper.kickstart_service(service: self.service)
+                            }) {
+                                Text("Kickstart")
+                            }
+                        } else {
+                            Text("Kickstarting!")
+                        }
+                        
+                        Button(action: {
+                            // Prints performance statistics for a service.
+                            print("runstats")
+                        }) {
+                            Text("Run Stats")
+                        }
+                        
+                        Button(action: {
+                            print("stop")
+                        }) {
+                            Text("Stop")
+                        }
+
+                        Button(action: {
+                            print("remove")
+                        }) {
+                            Text("Remove")
+                        }
+                        
+                        Button(action: {
+                            self.wrapper.refresh_service(service: self.service)
+                            self.toggle_additional_info = true
+                            print(self.service.additional_properties.count)
+                        }) {
+                            Text("Refresh")
+                        }
+                    }
+                    HStack {
+        //                All Launchctl commands for a service
+                        
+                        TextField("Filepath: ", text: $filepath)
+                            .padding()
+                            .frame(width: metrics.size.width * 0.5)
+                        Button(action: {
+                            print("unload")
+                            self.wrapper.unload_plist(filepath: filepath)
+                        }) {
+                            Text("Unload")
+                        }
+                        Button(action: {
+                            print("Parse plist")
+                            self.wrapper.parse_plist(filepath: filepath)
+                        }) {
+                            Text("Parse plist")
+                        }
                     }
                 }
                 
-                Button(action: {
-                    self.wrapper.refresh_service(service: self.service)
-                    self.toggle_additional_info = true
-                    print(self.service.additional_properties.count)
-                }) {
-                    Text("Refresh")
-                }
-            }
-            
-            Spacer()
-            
-            if self.toggle_additional_info {
-                List {
-                    ForEach(service.additional_properties.keys.sorted(), id: \.self) { key in
-                        Section{
-                            Text("\(key): ")
-                                .font(.headline)
-                                .bold()
-                            VStack(alignment: .leading) {
-                                ForEach(self.service.additional_properties[key] ?? [], id: \.self) {
-                                    sub_dict in
-                                    HStack {
-                                        Text("\(Array(sub_dict.keys)[0]): ")
-                                            .font(.subheadline)
-                                            .bold()
-                                        Text("\(sub_dict[Array(sub_dict.keys)[0]]!)")
+                Spacer()
+                
+                if self.toggle_additional_info {
+                    List {
+                        ForEach(service.additional_properties.keys.sorted(), id: \.self) { key in
+                            Group{
+                                Text("\(key): ")
+                                    .font(.headline)
+                                    .bold()
+                                VStack(alignment: .leading) {
+                                    ForEach(self.service.additional_properties[key] ?? [], id: \.self) {
+                                        sub_dict in
+                                        HStack {
+                                            Text("\(Array(sub_dict.keys)[0]): ")
+                                                .font(.subheadline)
+                                                .bold()
+                                            Text("\(sub_dict[Array(sub_dict.keys)[0]]!)").lineLimit(2)
+                                        }
                                     }
                                 }
+                                .padding(.leading, 45)
                             }
-                            .frame(maxWidth: .infinity, alignment: .center)
                         }
-                    }
-                }.padding()
-            }
+                    }.padding()
+                }
 
-        }.frame(minWidth: 300, maxWidth: .infinity, maxHeight: .infinity)
+            }.frame(minWidth: 300, maxWidth: .infinity, maxHeight: .infinity)
+        }
     }
 }
 

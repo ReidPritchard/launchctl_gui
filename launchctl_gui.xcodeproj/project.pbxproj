@@ -10,6 +10,8 @@
 		2240475624C21135003EC711 /* ServiceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240475524C21135003EC711 /* ServiceListView.swift */; };
 		2240475924C215B2003EC711 /* ServiceListViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240475824C215B2003EC711 /* ServiceListViewRow.swift */; };
 		2240475B24C21AEF003EC711 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240475A24C21AEF003EC711 /* HelpView.swift */; };
+		22879445260CEEC900818C17 /* plistParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22879444260CEEC900818C17 /* plistParser.swift */; };
+		22A2DBD124DDB79100C8B27D /* ActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A2DBD024DDB79100C8B27D /* ActionBar.swift */; };
 		22C0891B24C0B264006ED673 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 22C0891A24C0B264006ED673 /* README.md */; };
 		22D9CC6624BE122E00AAFC7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D9CC6524BE122E00AAFC7B /* AppDelegate.swift */; };
 		22D9CC6824BE122E00AAFC7B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D9CC6724BE122E00AAFC7B /* ContentView.swift */; };
@@ -47,6 +49,8 @@
 		2240475524C21135003EC711 /* ServiceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceListView.swift; sourceTree = "<group>"; };
 		2240475824C215B2003EC711 /* ServiceListViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceListViewRow.swift; sourceTree = "<group>"; };
 		2240475A24C21AEF003EC711 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
+		22879444260CEEC900818C17 /* plistParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plistParser.swift; sourceTree = "<group>"; };
+		22A2DBD024DDB79100C8B27D /* ActionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBar.swift; sourceTree = "<group>"; };
 		22C0891A24C0B264006ED673 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		22D9CC6224BE122E00AAFC7B /* launchctl_gui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = launchctl_gui.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22D9CC6524BE122E00AAFC7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +108,7 @@
 				2240475824C215B2003EC711 /* ServiceListViewRow.swift */,
 				22F0EB0124C37CA600C2CBE7 /* ServiceView.swift */,
 				2240475A24C21AEF003EC711 /* HelpView.swift */,
+				22A2DBD024DDB79100C8B27D /* ActionBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 				22D9CC9924BF7D1D00AAFC7B /* Service.swift */,
 				22D9CC6524BE122E00AAFC7B /* AppDelegate.swift */,
 				22F0EB0324C389AE00C2CBE7 /* statusCodes.swift */,
+				22879444260CEEC900818C17 /* plistParser.swift */,
 				2240475724C21536003EC711 /* Views */,
 				22D9CC6C24BE123100AAFC7B /* Assets.xcassets */,
 				22D9CC7124BE123100AAFC7B /* Main.storyboard */,
@@ -238,7 +244,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Reid Pritchard";
 				TargetAttributes = {
 					22D9CC6124BE122E00AAFC7B = {
@@ -314,11 +320,13 @@
 				22F0EB0424C389AE00C2CBE7 /* statusCodes.swift in Sources */,
 				22D9CC9824BE125200AAFC7B /* Wrapper.swift in Sources */,
 				22D9CC9A24BF7D1D00AAFC7B /* Service.swift in Sources */,
+				22A2DBD124DDB79100C8B27D /* ActionBar.swift in Sources */,
 				22D9CC6624BE122E00AAFC7B /* AppDelegate.swift in Sources */,
 				2240475B24C21AEF003EC711 /* HelpView.swift in Sources */,
 				2240475624C21135003EC711 /* ServiceListView.swift in Sources */,
 				22F0EB0224C37CA600C2CBE7 /* ServiceView.swift in Sources */,
 				22F0EB0B24C397E700C2CBE7 /* SearchBar.swift in Sources */,
+				22879445260CEEC900818C17 /* plistParser.swift in Sources */,
 				22D9CC6B24BE122E00AAFC7B /* launchctl_gui.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,6 +400,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -452,6 +461,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

@@ -30,10 +30,12 @@ class statusCodes {
         
         if int_code == 0 {
             self.description = "Returned with 0!! YAY"
-        }else if int_code! < 0 {
-            self.description = "Returned with negative code :/"
+        } else if int_code == 78 {
+            self.description = "Function not implemented"
+        } else if int_code! < 0 {
+            self.description = "Returned with negative code"
         }else if int_code! > 0 {
-            self.description = "Returned with positive non-zero code :/"
+            self.description = "Returned with positive non-zero code"
         }
         
         return self.description

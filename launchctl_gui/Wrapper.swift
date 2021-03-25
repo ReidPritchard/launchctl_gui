@@ -27,10 +27,12 @@ extension String {
 class Wrapper {
     var manager_id: String!
     var help:String!
+    var parser: pListParser!
     
     init() {
         self.setup_manager_id()
         self.setup_help()
+        self.parser = pListParser()
     }
     
     func shell(cmd : String, args : String...) -> (output: [String], error: [String], exitCode: Int32) {
@@ -84,12 +86,7 @@ class Wrapper {
         
         var data: [String: [[String: String]]] = [:]
 
-        do {
-            data = try parse_launchctl_print(output: Array(result.output.dropFirst()))
-        }
-        catch {
-            print(error)
-        }
+        data = parse_launchctl_print(output: Array(result.output.dropFirst()))
 
         if data.count > 0 {
             service.update_dump(data: data)
@@ -129,7 +126,7 @@ class Wrapper {
         
         if (new_res.exitCode != 0) {
             print("Aw fuck this isn't good...", new_res.error.joined(separator: " "))
-        }else {
+        } else {
             for item in new_res.output {
                 let range = item.range(of: "^\\s*(\\d*)\\s*(\\S*)\\s*(\\S*)$", options: .regularExpression)
 
@@ -147,6 +144,38 @@ class Wrapper {
         }
         return all_services
     }
+    
+    func load_plist(filepath: String) -> Void {
+        let load_cmd = self.shell(cmd: "/bin/launchctl", args: "load", filepath)
+        
+        if load_cmd.exitCode != 0 {
+            print("Aw fuck this isn't good...", load_cmd.error.joined(separator: " "))
+        } else {
+            print("I think it worked?")
+            for item in load_cmd.output {
+                print(item)
+            }
+        }
+    }
+    
+    func unload_plist(filepath: String) -> Void {
+        let unload_cmd = self.shell(cmd: "bin/launchctl", args: "unload", filepath)
+        
+        if unload_cmd.exitCode != 0 {
+            print("Aw fuck this isn't good...", unload_cmd.error.joined(separator: " "))
+        } else {
+            print("I think it worked?")
+            for item in unload_cmd.output {
+                print(item)
+            }
+        }
+    }
+    
+    func parse_plist(filepath: String) -> Void {
+        self.parser.load_plist(filename: filepath);
+        self.parser.printPlist();
+    }
+    
 }
 
 
