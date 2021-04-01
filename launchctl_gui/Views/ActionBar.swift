@@ -12,27 +12,51 @@ struct ActionBar: View {
     let wrapper: Wrapper
     
     var body: some View {
-        Button("Load PList"){
-            let dialog = NSOpenPanel();
+            
+        HStack {
 
-            dialog.title                   = "Choose plist file";
-            dialog.showsResizeIndicator    = true;
-            dialog.showsHiddenFiles        = false;
-            dialog.allowsMultipleSelection = false;
-            dialog.canChooseDirectories = false;
-            dialog.allowedFileTypes = ["plist"]
-
-            if (dialog.runModal() ==  NSApplication.ModalResponse.OK) {
-                let result = dialog.url // Pathname of the file
-
-                if (result != nil) {
-                    let path: String = result!.path
-                    self.wrapper.load_plist(filepath: path)
-                }
+            Button("Load PList"){
+                let dialog = NSOpenPanel();
+                    dialog.title                   = "Choose plist file";
+                    dialog.showsResizeIndicator    = true;
+                    dialog.showsHiddenFiles        = false;
+                    dialog.allowsMultipleSelection = false;
+                    dialog.canChooseDirectories = false;
+                    dialog.allowedFileTypes = ["plist"]
                 
-            } else {
-                // User clicked on "Cancel"
-                return
+                    dialog.begin { (result) -> Void in
+                    if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
+                        let selectedPath = dialog.url!.path
+                        print(selectedPath)
+                        
+                        self.wrapper.load_plist(filepath: selectedPath)
+                    } else {
+                        // User clicked on "Cancel"
+                        return
+                    }
+                }
+            }
+                        
+            Button("Parse PList") {
+                let dialog = NSOpenPanel();
+                    dialog.title                   = "Choose plist file";
+                    dialog.showsResizeIndicator    = true;
+                    dialog.showsHiddenFiles        = false;
+                    dialog.allowsMultipleSelection = false;
+                    dialog.canChooseDirectories = false;
+                    dialog.allowedFileTypes = ["plist"]
+                
+                    dialog.begin { (result) -> Void in
+                    if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
+                        let selectedPath = dialog.url!.path
+                        print(selectedPath)
+
+                        // TODO: Implement parser function
+                    } else {
+                        // User clicked on "Cancel"
+                        return
+                    }
+                }
             }
         }
     }

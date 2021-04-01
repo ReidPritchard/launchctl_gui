@@ -43,6 +43,6 @@ class pListParser {
     }
     
     func printPlist() {
-        print(self.plist);
+        print(self.plist ?? "Unable to print plist right now!");
     }
 }

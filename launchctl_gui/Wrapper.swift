@@ -125,7 +125,7 @@ class Wrapper {
         var all_services: [Service] = []
         
         if (new_res.exitCode != 0) {
-            print("Aw fuck this isn't good...", new_res.error.joined(separator: " "))
+            print("Aw man this isn't good...", new_res.error.joined(separator: " "))
         } else {
             for item in new_res.output {
                 let range = item.range(of: "^\\s*(\\d*)\\s*(\\S*)\\s*(\\S*)$", options: .regularExpression)
@@ -149,7 +149,7 @@ class Wrapper {
         let load_cmd = self.shell(cmd: "/bin/launchctl", args: "load", filepath)
         
         if load_cmd.exitCode != 0 {
-            print("Aw fuck this isn't good...", load_cmd.error.joined(separator: " "))
+            print("Aw man this isn't good...", load_cmd.error.joined(separator: " "))
         } else {
             print("I think it worked?")
             for item in load_cmd.output {
@@ -162,7 +162,7 @@ class Wrapper {
         let unload_cmd = self.shell(cmd: "bin/launchctl", args: "unload", filepath)
         
         if unload_cmd.exitCode != 0 {
-            print("Aw fuck this isn't good...", unload_cmd.error.joined(separator: " "))
+            print("Aw man this isn't good...", unload_cmd.error.joined(separator: " "))
         } else {
             print("I think it worked?")
             for item in unload_cmd.output {
@@ -189,6 +189,8 @@ func parse_launchctl_print(output: [String]) -> [String: [[String: String]]] {
     for line in output {
         let trimmedline = line.trimmingCharacters(in: .whitespacesAndNewlines)
 
+        // FIXME: Really need to work on this regex, we are not getting the values we actually need example (last exit code)
+        // We may want to hardcode them. I'm not really sure what other wrappers do
         var regex_result = trimmedline.matchingStrings(regex: #"^\s{0,}(\S.{1,}) =(?:\s|> )(\{|\S{1,}|.){1,}$"#).first
 
         if regex_result != nil {
@@ -209,19 +211,21 @@ func parse_launchctl_print(output: [String]) -> [String: [[String: String]]] {
             }
         } else {
             if trimmedline != "" {
-                if trimmedline == "}" {
+                
+                // Check if end of group
+                if trimmedline.contains("}") {
+                    // Make sure there is a group to leave
                     if currKeyStack.count > 0 {
-//                        print("REMOVING THIS KEY", currKeyStack.removeFirst())
+                        // print("REMOVING THIS KEY", currKeyStack.removeFirst())
                         currKeyStack.removeFirst()
                     }
                 } else {
+                    // As long as we are in a group. This is needed, seems odd tho
                     if currKeyStack.count > 0 {
                         add_to_dictionary(dict: &parsedValues, parentKey: (currKeyStack.first)!, childKey: (currKeyStack.first)!, val: trimmedline)
                     }
                 }
                 
-                // Probably need to save the info here or at least
-                // check if it's the end of a group
             }
         }
     }

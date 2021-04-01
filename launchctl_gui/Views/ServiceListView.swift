@@ -39,9 +39,7 @@ struct ServiceListView: View {
                             }
                         }
                     }
-                }
-    //                .navigationBarSearch(self.$searchText)
-                    .frame(minWidth: 300)
+                }.frame(minWidth: 300)
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }

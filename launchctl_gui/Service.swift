@@ -66,16 +66,17 @@ class Service : NSObject, Identifiable {
         }
     }
     
-    func get_attribute(names: [String]) -> String {
+    // FIXME: I just keep nesting these attributes deeper and deeper in lists. Need to fix this as it doens't seem optimal
+    func get_attributes(names: [String]) -> [[[String : String]]] {
         
-        for name in names {
-            return name;
+        let mapped_names = names.map {
+            (name) -> [[String : String]] in return self.additional_properties[name] ?? [[name: "Not Found"]]
         }
         
-        return "";
+        return mapped_names;
     }
 
     func update_dump(data: [String: [[String: String]]]) {
-        additional_properties = data
+        self.additional_properties = data
     }
 }

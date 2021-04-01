@@ -13,7 +13,7 @@ struct ContentView: View {
 
     var body: some View {
         VStack{
-            ActionBar(wrapper: w).padding()
+            ActionBar(wrapper: w).padding(.top)
             
             HStack {
                 ServiceListView(wrapper: w)

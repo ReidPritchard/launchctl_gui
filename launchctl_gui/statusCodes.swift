@@ -28,6 +28,7 @@ class statusCodes {
             return self.description
         }
         
+        // TODO: Figure out what all the codes mean
         if int_code == 0 {
             self.description = "Returned with 0!! YAY"
         } else if int_code == 78 {

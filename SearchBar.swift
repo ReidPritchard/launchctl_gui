@@ -13,9 +13,7 @@ struct SearchBar : View {
     
     var body: some View {
         HStack {
-            TextField("Search", text: $searchText, onCommit:  {
-                NSApplication.shared.windows.first { $0.isKeyWindow }?.endEditing(for: true)
-            })
+            TextField("Search", text: $searchText)
           .padding(.leading, 10)
             Button(action: {
                 self.searchText = ""
