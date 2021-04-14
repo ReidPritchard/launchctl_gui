@@ -8,28 +8,41 @@
 
 import SwiftUI
 
-struct ServiceViewRow: View {
+struct ServiceListViewRow: View {
     let service: Service
     
     var body: some View {
-        HStack {
-            Text("Status: " + service.status)
-                .font(.subheadline)
-                .lineLimit(1)
-                .padding(.trailing, 5.0)
-            VStack(alignment: .leading) {
-                Text(service.name)
-                    .font(.headline)
-                Text("PID: " + service.pid)
+        VStack {
+            HStack (alignment: .center) {
+                Text("Status: " + service.status)
                     .font(.subheadline)
+                    .lineLimit(1)
+                    .padding(.trailing, 5.0)
+                VStack(alignment: .leading) {
+                    Text(service.name)
+                        .font(.headline)
+                        .minimumScaleFactor(0.5)
+                    Text("PID: " + service.pid)
+                        .font(.subheadline)
+                }
+                
+                Spacer()
+                
+//                pLineArrow
             }
+
+            Divider()
+                   .padding([.leading, .trailing], 30)
         }
-        .padding()
+//        .frame(minHeight: 30)
+//        .padding()
+        
+//        Text("Status: " + service.name)
     }
 }
 
-struct ServiceViewRow_Previews: PreviewProvider {
+struct ServiceListViewRow_Previews: PreviewProvider {
     static var previews: some View {
-        ServiceViewRow(service: Service(given_string: ["10", "10", "This is the name :0 Wowzers"]))
+        ServiceListViewRow(service: Service(given_string: ["10", "10", "This is the name :0 Wowzers"]))
     }
 }

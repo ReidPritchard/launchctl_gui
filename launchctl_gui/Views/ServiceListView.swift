@@ -10,38 +10,69 @@ import SwiftUI
 
 struct ServiceListView: View {
     let wrapper: Wrapper
-    var list: [Service]
-
-    @State private var selection: String?
+    let emptyService = ServiceView(service: Service(given_string: ["0", "0", "-"]), wrapper: Wrapper())
+    
+    @State var list: [Service] = []
+    // I hate that I init empty service twice, but I also don't know how else to
+    // get this to work
+    @State var current_view: ServiceView = ServiceView(service: Service(given_string: ["0", "0", "-"]), wrapper: Wrapper())
     @State var searchText = ""
 
     init(wrapper: Wrapper) {
         self.wrapper = wrapper
-        list = wrapper.get_user_list()
+        list = self.wrapper.get_user_list()
 //        var timer = Timer()
-//            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.update_list), userInfo: nil, repeats: true)
-    }
-    
-    private func update_list(){
-//        self.list = wrapper.get_user_list()
+//            timer = Timer.scheduledTimer(timeInterval: 1, target: self.update_list, repeats: true)
     }
     
     var body: some View {
-        VStack {
-            NavigationView {
+        GeometryReader { metrics in
+            HSplitView {
                 VStack {
+
+                    Button("Refresh Service List") {
+                        list = wrapper.get_user_list()
+                    }
+                    .padding()
+
                     SearchBar(searchText: $searchText)
-                        .padding(.top)
-                    List(selection: $selection) {
-                        ForEach(list.filter { self.searchText.isEmpty ? true : $0.name.localizedCaseInsensitiveContains(self.searchText) }) { s in
-                            NavigationLink(destination: ServiceView(service: s, wrapper: self.wrapper)){
-                                ServiceViewRow(service: s)
+                
+                    // List of services (links)
+                    List {
+                        ForEach (list.filter {
+                            // Filter by searchbar text
+                            self.searchText.isEmpty ? true : $0.name.localizedCaseInsensitiveContains(self.searchText)
+                        })
+                        { matched_service in
+                            // matched_service.name.capitalized
+                            
+                            Button(action: {
+                                let new_view = ServiceView(service: matched_service, wrapper: self.wrapper)
+                                
+                                if (new_view.service.name == current_view.service.name) {
+                                    current_view = emptyService
+                                } else {
+                                    current_view = new_view
+                                }
+                            }) {
+                                ServiceListViewRow(service: matched_service)
                             }
+                            .buttonStyle(PlainButtonStyle())
+                            .background(matched_service == current_view.service ?
+                                            Color.accentColor : nil)
+//                                .padding() // cuases bad effects we should try keeping it all inside the componenet?
+
                         }
                     }
-                }.frame(minWidth: 300)
-            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .frame(minWidth: metrics.size.width * 0.25, maxWidth: metrics.size.width * 0.75)
+                }
+                
+                current_view
+                    .frame(minWidth: metrics.size.width * 0.25, maxWidth: metrics.size.width * 0.75)
+            }
         }
+        .listStyle(SidebarListStyle())
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

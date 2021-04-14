@@ -25,7 +25,7 @@ struct ServiceView: View {
                     .padding()
                 
                 Spacer()
-                
+                                
                 HStack {
                     Spacer()
 
@@ -55,73 +55,74 @@ struct ServiceView: View {
                 
                 
                 VStack {
-                    HStack {
-                        Button(action: {
-                            print("start")
-                        }) {
-                            Text("Start")
-                        }
-                    
-                        
-                        if (toggle_kickstart){
+                    Group {
+                        HStack {
                             Button(action: {
-                                self.toggle_kickstart = self.wrapper.kickstart_service(service: self.service)
+                                print("start")
                             }) {
-                                Text("Kickstart")
+                                Text("Start")
                             }
-                        } else {
-                            Text("Kickstarting!")
-                        }
                         
-                        Button(action: {
-                            // Prints performance statistics for a service.
-                            print("runstats")
-                        }) {
-                            Text("Run Stats")
-                        }
-                        
-                        Button(action: {
-                            print("stop")
-                        }) {
-                            Text("Stop")
-                        }
+                            
+                            if (toggle_kickstart){
+                                Button(action: {
+                                    self.toggle_kickstart = self.wrapper.kickstart_service(service: self.service)
+                                }) {
+                                    Text("Kickstart")
+                                }
+                            } else {
+                                Text("Kickstarting!")
+                            }
+                            
+                            Button(action: {
+                                // Prints performance statistics for a service.
+                                print("runstats")
+                            }) {
+                                Text("Run Stats")
+                            }
+                            
+                            Button(action: {
+                                print("stop")
+                            }) {
+                                Text("Stop")
+                            }
 
-                        Button(action: {
-                            print("remove")
-                        }) {
-                            Text("Remove")
-                        }
-                        
-                        Button(action: {
-                            self.wrapper.refresh_service(service: self.service)
-                            self.toggle_additional_info = true
-                            print(self.service.additional_properties.count)
-                        }) {
-                            Text("Refresh")
-                        }
-                    }
-                    HStack {
-        //                All Launchctl commands for a service
-                        
-                        TextField("Filepath: ", text: $filepath)
-                            .padding()
-                            .frame(width: metrics.size.width * 0.5)
-                        Button(action: {
-                            print("unload")
-                            self.wrapper.unload_plist(filepath: filepath)
-                        }) {
-                            Text("Unload")
-                        }
-                        Button(action: {
-                            print("Parse plist")
-                            self.wrapper.parse_plist(filepath: filepath)
-                        }) {
-                            Text("Parse plist")
+                            Button(action: {
+                                print("remove")
+                            }) {
+                                Text("Remove")
+                            }
+                            
+                            Button(action: {
+                                self.wrapper.refresh_service(service: self.service)
+                                self.toggle_additional_info = true
+    //                            print(self.service.additional_properties.count)
+                            }) {
+                                Text("Refresh")
+                            }
+
+                            Button(action: {
+                                print("Unload plist")
+                                // TODO: Get associated plist file from service, then call wrapper.unload_plist(filepath: ...)
+                            }) {
+                                Text("Unload")
+                            }
                         }
                     }
                 }
                 
                 Spacer()
+                if #available(OSX 11.0, *) {
+                    Toggle("Toggle Additional Info", isOn: $toggle_additional_info)
+                        .onChange(of: toggle_additional_info, perform: { value in
+                            self.wrapper.refresh_service(service: self.service)
+                        })
+                } else {
+                    // Fallback on earlier versions
+                    // TODO: Implement fallback!
+                }
+                Spacer()
+
                 
                 if self.toggle_additional_info {
                     List {

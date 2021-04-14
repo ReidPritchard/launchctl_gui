@@ -86,7 +86,7 @@ class Wrapper {
         
         var data: [String: [[String: String]]] = [:]
 
-        data = parse_launchctl_print(output: Array(result.output.dropFirst()))
+        data = parse_launchctl_print(output: Array(result.output))
 
         if data.count > 0 {
             service.update_dump(data: data)
@@ -142,7 +142,8 @@ class Wrapper {
                 }
             }
         }
-        return all_services
+        
+        return all_services.sorted(by: {  $0.name > $1.name  })
     }
     
     func load_plist(filepath: String) -> Void {
@@ -182,12 +183,13 @@ class Wrapper {
 
 func parse_launchctl_print(output: [String]) -> [String: [[String: String]]] {
     
+    // This is also such a gross way to do this. I will want to update this at some point
     var parsedValues: [String: [[String: String]]] = [:]
     var currKeyStack: [String] = []
     
-    
     for line in output {
         let trimmedline = line.trimmingCharacters(in: .whitespacesAndNewlines)
+//        print(trimmedline)
 
         // FIXME: Really need to work on this regex, we are not getting the values we actually need example (last exit code)
         // We may want to hardcode them. I'm not really sure what other wrappers do
@@ -199,31 +201,37 @@ func parse_launchctl_print(output: [String]) -> [String: [[String: String]]] {
 
             
             // Check if new category is opening
-            if regex_result?.last == "{" {
-//                print("New category!", (regex_result?.last)!)
+            let l_string: String = regex_result?.last ?? ""
+            if l_string.contains("{") {
+//                print("New category!", (regex_result?.first)!)
                 
                 // Simply push to stack then use like normal
                 currKeyStack.append((regex_result?.first)!)
 
+            // Check if old category is closing
+            } else if trimmedline.contains("}") {
+//                print("REMOVING THIS KEY", currKeyStack.last ?? "")
+                currKeyStack.removeLast()
             } else {
                 // All values (NOT '{')
-                add_to_dictionary(dict: &parsedValues, parentKey: currKeyStack.first ?? (regex_result?.first)!, childKey: (regex_result?.first)!, val: (regex_result?.last)!)
+                add_to_dictionary(dict: &parsedValues, parentKey: currKeyStack.last ?? (regex_result?.first)!, childKey: (regex_result?.first)!, val: (regex_result?.last)!)
             }
         } else {
+            // If our regex fails! (fallback)
+            
             if trimmedline != "" {
                 
+                // Check if new category is opening
+                if trimmedline.contains("{") {
+//                    print("New category!", (regex_result?.first)!)
+                    currKeyStack.append((regex_result?.first)!)
+
                 // Check if end of group
-                if trimmedline.contains("}") {
-                    // Make sure there is a group to leave
-                    if currKeyStack.count > 0 {
-                        // print("REMOVING THIS KEY", currKeyStack.removeFirst())
-                        currKeyStack.removeFirst()
-                    }
+                } else if trimmedline.contains("}") {
+//                    print("REMOVING THIS KEY", currKeyStack.last ?? "")
+                    currKeyStack.removeLast()
                 } else {
-                    // As long as we are in a group. This is needed, seems odd tho
-                    if currKeyStack.count > 0 {
-                        add_to_dictionary(dict: &parsedValues, parentKey: (currKeyStack.first)!, childKey: (currKeyStack.first)!, val: trimmedline)
-                    }
+                    add_to_dictionary(dict: &parsedValues, parentKey: (currKeyStack.last)!, childKey: (currKeyStack.first)!, val: trimmedline)
                 }
                 
             }
