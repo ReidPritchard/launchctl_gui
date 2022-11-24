@@ -59,6 +59,8 @@ struct ActionBar: View {
                 }
             }
         }
+        
+        Divider()
     }
 }
 

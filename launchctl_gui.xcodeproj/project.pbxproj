@@ -127,6 +127,13 @@
 			path = readme_images;
 			sourceTree = "<group>";
 		};
+		225C39232627CDC000ECEF9F /* assets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
 		229CBE2226163FBE00B11A77 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +168,7 @@
 		22D9CC6424BE122E00AAFC7B /* launchctl_gui */ = {
 			isa = PBXGroup;
 			children = (
+				225C39232627CDC000ECEF9F /* assets */,
 				22D9CC9724BE125200AAFC7B /* Wrapper.swift */,
 				22D9CC9924BF7D1D00AAFC7B /* Service.swift */,
 				22D9CC6524BE122E00AAFC7B /* AppDelegate.swift */,

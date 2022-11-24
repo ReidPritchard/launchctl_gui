@@ -21,7 +21,7 @@ struct ServiceListViewRow: View {
                 VStack(alignment: .leading) {
                     Text(service.name)
                         .font(.headline)
-                        .minimumScaleFactor(0.5)
+                        .minimumScaleFactor(0.8)
                     Text("PID: " + service.pid)
                         .font(.subheadline)
                 }
@@ -30,9 +30,10 @@ struct ServiceListViewRow: View {
                 
 //                pLineArrow
             }
+            .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44, maxHeight: 44, alignment: .center)
 
-            Divider()
-                   .padding([.leading, .trailing], 30)
+//            Divider()
+//                   .padding([.leading, .trailing], 30)
         }
 //        .frame(minHeight: 30)
 //        .padding()

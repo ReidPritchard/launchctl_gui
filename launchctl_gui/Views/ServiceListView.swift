@@ -19,6 +19,7 @@ struct ServiceListView: View {
     @State var searchText = ""
 
     init(wrapper: Wrapper) {
+        
         self.wrapper = wrapper
         list = self.wrapper.get_user_list()
 //        var timer = Timer()
@@ -30,9 +31,17 @@ struct ServiceListView: View {
             HSplitView {
                 VStack {
 
-                    Button("Refresh Service List") {
-                        list = wrapper.get_user_list()
+                    Button(action: {
+                        withAnimation {
+                            list = wrapper.get_user_list()
+                        }
+                    }) {
+                        HStack {
+                            Text("􀅈")
+                            Text("Refresh Service List")
+                        }
                     }
+                    .buttonStyle(BorderlessButtonStyle())
                     .padding()
 
                     SearchBar(searchText: $searchText)
@@ -57,6 +66,7 @@ struct ServiceListView: View {
                             }) {
                                 ServiceListViewRow(service: matched_service)
                             }
+                            .listRowInsets(EdgeInsets())
                             .buttonStyle(PlainButtonStyle())
                             .background(matched_service == current_view.service ?
                                             Color.accentColor : nil)

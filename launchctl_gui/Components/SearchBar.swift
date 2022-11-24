@@ -20,6 +20,7 @@ struct SearchBar : View {
             }) {
                 Text("Clear")
             }
+            .disabled(searchText.isEmpty)
         }.padding(.horizontal)
     }
 }
