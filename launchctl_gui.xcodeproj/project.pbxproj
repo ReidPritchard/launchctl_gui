@@ -11,6 +11,7 @@
 		2240475924C215B2003EC711 /* ServiceListViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240475824C215B2003EC711 /* ServiceListViewRow.swift */; };
 		2240475B24C21AEF003EC711 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240475A24C21AEF003EC711 /* HelpView.swift */; };
 		225730BE2627A50B00C15956 /* super_beta.png in Resources */ = {isa = PBXBuildFile; fileRef = 225730BD2627A50B00C15956 /* super_beta.png */; };
+		227D6EC2292EFB6C0099E358 /* ServiceAdditionalDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D6EC1292EFB6C0099E358 /* ServiceAdditionalDetails.swift */; };
 		22879445260CEEC900818C17 /* plistParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22879444260CEEC900818C17 /* plistParser.swift */; };
 		229CBE242616400800B11A77 /* PulldownList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229CBE232616400800B11A77 /* PulldownList.swift */; };
 		22A2DBD124DDB79100C8B27D /* ActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A2DBD024DDB79100C8B27D /* ActionBar.swift */; };
@@ -53,6 +54,7 @@
 		2240475824C215B2003EC711 /* ServiceListViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceListViewRow.swift; sourceTree = "<group>"; };
 		2240475A24C21AEF003EC711 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		225730BD2627A50B00C15956 /* super_beta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = super_beta.png; sourceTree = "<group>"; };
+		227D6EC1292EFB6C0099E358 /* ServiceAdditionalDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAdditionalDetails.swift; sourceTree = "<group>"; };
 		22879444260CEEC900818C17 /* plistParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plistParser.swift; sourceTree = "<group>"; };
 		229CBE232616400800B11A77 /* PulldownList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulldownList.swift; sourceTree = "<group>"; };
 		22A2DBD024DDB79100C8B27D /* ActionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBar.swift; sourceTree = "<group>"; };
@@ -109,11 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				22D9CC6724BE122E00AAFC7B /* ContentView.swift */,
-				2240475524C21135003EC711 /* ServiceListView.swift */,
-				2240475824C215B2003EC711 /* ServiceListViewRow.swift */,
-				22F0EB0124C37CA600C2CBE7 /* ServiceView.swift */,
 				2240475A24C21AEF003EC711 /* HelpView.swift */,
-				22A2DBD024DDB79100C8B27D /* ActionBar.swift */,
 				22CA09602617790300D9D8B8 /* MainServiceView.swift */,
 			);
 			path = Views;
@@ -134,9 +132,38 @@
 			path = assets;
 			sourceTree = "<group>";
 		};
+		227D6EBD292EFA660099E358 /* ServiceList */ = {
+			isa = PBXGroup;
+			children = (
+				2240475524C21135003EC711 /* ServiceListView.swift */,
+				2240475824C215B2003EC711 /* ServiceListViewRow.swift */,
+			);
+			path = ServiceList;
+			sourceTree = "<group>";
+		};
+		227D6EBE292EFA830099E358 /* ActionBar */ = {
+			isa = PBXGroup;
+			children = (
+				22A2DBD024DDB79100C8B27D /* ActionBar.swift */,
+			);
+			path = ActionBar;
+			sourceTree = "<group>";
+		};
+		227D6EC0292EFB300099E358 /* ServiceDetails */ = {
+			isa = PBXGroup;
+			children = (
+				22F0EB0124C37CA600C2CBE7 /* ServiceView.swift */,
+				227D6EC1292EFB6C0099E358 /* ServiceAdditionalDetails.swift */,
+			);
+			path = ServiceDetails;
+			sourceTree = "<group>";
+		};
 		229CBE2226163FBE00B11A77 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				227D6EC0292EFB300099E358 /* ServiceDetails */,
+				227D6EBE292EFA830099E358 /* ActionBar */,
+				227D6EBD292EFA660099E358 /* ServiceList */,
 				22F0EB0A24C397E700C2CBE7 /* SearchBar.swift */,
 				229CBE232616400800B11A77 /* PulldownList.swift */,
 			);
@@ -358,6 +385,7 @@
 				22D9CC9A24BF7D1D00AAFC7B /* Service.swift in Sources */,
 				22A2DBD124DDB79100C8B27D /* ActionBar.swift in Sources */,
 				22D9CC6624BE122E00AAFC7B /* AppDelegate.swift in Sources */,
+				227D6EC2292EFB6C0099E358 /* ServiceAdditionalDetails.swift in Sources */,
 				2240475B24C21AEF003EC711 /* HelpView.swift in Sources */,
 				2240475624C21135003EC711 /* ServiceListView.swift in Sources */,
 				22F0EB0224C37CA600C2CBE7 /* ServiceView.swift in Sources */,
@@ -538,6 +566,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"launchctl_gui/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = launchctl_gui/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Launchctl GUI";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -561,6 +590,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"launchctl_gui/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = launchctl_gui/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Launchctl GUI";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

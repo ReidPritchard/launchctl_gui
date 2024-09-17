@@ -14,22 +14,22 @@ import SwiftUI
 struct MainServiceView: View {
     let wrapper: Wrapper
     
-    @State var list: [Service] = []
-    @State var current_view: ServiceView = ServiceView(service: Service(given_string: ["0", "0", "-"]), wrapper: Wrapper())
+    @State var serviceList: [Service] = []
+    @State var selectedService = Service(given_string: [])
     @State var searchText = ""
 
     init(wrapper: Wrapper) {
         self.wrapper = wrapper
-        list = wrapper.get_user_list()
+        serviceList = wrapper.get_user_list()
     }
     
     var body: some View {
         GeometryReader { metrics in
             HSplitView {
-                ServiceListView(wrapper: wrapper)
+                ServiceListView(selectedService: self.$selectedService, list: self.$serviceList)
                     .frame(minWidth: metrics.size.width * 0.25, maxWidth: metrics.size.width * 0.75)
                 
-                current_view
+                ServiceView(service: self.$selectedService, wrapper: Wrapper())
                     .frame(minWidth: metrics.size.width * 0.25, maxWidth: metrics.size.width * 0.75)
             }
         }

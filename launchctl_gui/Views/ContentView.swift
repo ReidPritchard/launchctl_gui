@@ -9,23 +9,39 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let w = Wrapper()
-
+    let wrapper: Wrapper
+    
     var body: some View {
-        VStack{
-            ActionBar(wrapper: w).padding(.top)
+        VStack {
+            ActionBar(wrapper: wrapper)
+                .padding(.top)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("Service Manager")
+                            .font(.headline)
+                    }
+                }
             
-            HStack {
-                ServiceListView(wrapper: w)
-            }
+            // Main content area
+            ServiceListSection(wrapper: wrapper)
+                .frame(minWidth: 600, maxWidth: 1000, minHeight: 300, maxHeight: 900)
         }
-        .frame(minWidth: 600, maxWidth: 1000, minHeight: 300, maxHeight: 900)
     }
 }
 
+struct ServiceListSection: View {
+    let wrapper: Wrapper
+    
+    var body: some View {
+        HStack {
+            ServiceListView(selectedService: .constant(Service()), list: .constant(wrapper.get_user_list()))
+                .layoutPriority(1)
+        }
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(wrapper: Wrapper())
     }
 }

@@ -27,12 +27,12 @@ extension String {
 class Wrapper {
     var manager_id: String!
     var help:String!
-    var parser: pListParser!
+    var parser: PlistParser!
     
     init() {
         self.setup_manager_id()
         self.setup_help()
-        self.parser = pListParser()
+        self.parser = PlistParser()
     }
     
     func shell(cmd : String, args : String...) -> (output: [String], error: [String], exitCode: Int32) {
@@ -173,8 +173,13 @@ class Wrapper {
     }
     
     func parse_plist(filepath: String) -> Void {
-        self.parser.load_plist(filename: filepath);
-        self.parser.printPlist();
+        do {
+            try parser.loadPlist(filename: filepath)
+            parser.printPlist()
+        }
+        catch {
+            print("An error occurred: \(error.localizedDescription)")
+        }
     }
     
 }
